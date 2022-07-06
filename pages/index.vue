@@ -1,13 +1,10 @@
-<script setup>
-import { useCounter } from '../composables'
-
-const { counter } = useCounter()
-</script>
 <template>
-  <div>
-    <div>カウンターの値：{{ counter }}</div>
-    <div>
+  <ul>
+    <li>
       <nuxt-link to="/counter">カウンター画面へ</nuxt-link>
-    </div>
-  </div>
+    </li>
+    <li>
+      <nuxt-link to="/message">メッセージ画面1へ</nuxt-link>
+    </li>
+  </ul>
 </template>
