@@ -2,8 +2,14 @@
 import {Ref, ref, computed} from "@vue/reactivity";
 import {useChatRoom} from '~/composables'
 import {Message, MessageSortables, AllMessageSortables, OrderBy, AllOrderBy} from '~/types'
+import {useAsyncData} from "#imports";
 
-const {messages, add, clear} = useChatRoom()
+const {data, pending, error, refresh} = await useAsyncData(
+    'messages',
+    () => $fetch('/api/messages')
+)
+
+const {messages, add, set, clear} = useChatRoom(data.value)
 const username: Ref<string> = ref('ユーザー1')
 const text: Ref<string> = ref('')
 const orderBy: Ref<OrderBy> = ref('asc')
@@ -12,11 +18,11 @@ const addMessage = () => {
   add(username.value, text.value)
   text.value = ''
 }
-const datetimeToString = (datetime: Date) => {
-  const date = datetime.toLocaleDateString()
-  const time = datetime.toLocaleTimeString()
-  return `${date} ${time}`
+const refreshMessages = () => {
+  refresh()
+  set(data.value)
 }
+
 const _sort = (a: Message, b: Message) => {
   switch (orderBy.value) {
     case 'asc':
@@ -25,9 +31,7 @@ const _sort = (a: Message, b: Message) => {
       return a[sortBy.value] < b[sortBy.value] ? 1 : -1
   }
 }
-const sortMessages = computed(() => {
-  return messages.value.map(m => m).sort(_sort)
-})
+const sortMessages = computed(() => messages.value.map(m => m).sort(_sort))
 </script>
 <template>
   <div>
@@ -40,10 +44,12 @@ const sortMessages = computed(() => {
         <option v-for="so in AllMessageSortables" :key="so">{{ so }}</option>
       </select>
     </div>
-    <div>
+    <div v-if="error">{{ error }}</div>
+    <div v-else-if="pending">Loading...</div>
+    <div v-else>
       <h3>メッセージ一覧</h3>
       <ul v-for="m in sortMessages" :key="m.id">
-        <li>{{ m.username }}:「{{ m.text }}」（{{ datetimeToString(m.createdAt) }}）</li>
+        <li>{{ m.username }}:「{{ m.text }}」（{{ m.createdAt }}）</li>
       </ul>
     </div>
     <div>
@@ -53,6 +59,7 @@ const sortMessages = computed(() => {
       <input type="text" v-model="text" placeholder="テキスト">
       <button :disabled="!text || !username" @click="addMessage">追加する</button>
       <button @click="clear">初期化する</button>
+      <button @click="refreshMessages">再取得</button>
     </div>
     <nuxt-link to="/">TOPへ</nuxt-link>
   </div>

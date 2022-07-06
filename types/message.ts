@@ -2,8 +2,8 @@ export interface Message {
   id: string
   username: string
   text: string
-  createdAt: Date
-  updatedAt: Date
+  createdAt: string
+  updatedAt: string
 }
 
 export type MessageSortables = 'id' | 'username' | 'createdAt' | 'updatedAt'

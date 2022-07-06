@@ -8,15 +8,12 @@ const newMessage = (username: string, text: string): Message => {
     id: UUID.generate(),
     username,
     text,
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    createdAt: new Date().toLocaleString('ja-JP'),
+    updatedAt: new Date().toLocaleString('ja-JP'),
   }
 }
-const add = (messages: Ref<Message[]>) => (username: string, text: string) => {
-  if (username && text) {
-    messages.value.push(newMessage(username, text));
-  }
-}
+const add = (messages: Ref<Message[]>) => (username: string, text: string) => messages.value.push(newMessage(username, text))
+const set = (messages: Ref<Message[]>) => (msg: Message[]) => messages.value = msg
 const clear = (messages: Ref<Message[]>) => () => messages.value = []
 
 export const useChatRoom = (initialState?: Message[]) => {
@@ -24,6 +21,7 @@ export const useChatRoom = (initialState?: Message[]) => {
   return {
     messages: readonly(messages),
     add: add(messages),
+    set: set(messages),
     clear: clear(messages),
   }
 }
