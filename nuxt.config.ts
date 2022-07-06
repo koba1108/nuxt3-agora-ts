@@ -4,6 +4,6 @@ import { defineNuxtConfig } from 'nuxt'
 export default defineNuxtConfig({
   target: "static",
   app: {
-    cdnURL: '/nuxt3-agora-ts/'
+    cdnURL: 'https://koba1108.github.io/nuxt3-agora-ts'
   }
 })
