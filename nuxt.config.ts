@@ -1,7 +1,7 @@
 import { defineNuxtConfig } from 'nuxt'
 
 export default defineNuxtConfig({
-  ssr: true,
+  ssr: false,
   target: "static",
   app: {
     baseURL: '/nuxt3-agora-ts/',
