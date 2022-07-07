@@ -26,9 +26,9 @@ const refreshMessages = () => {
 const _sort = (a: Message, b: Message) => {
   switch (orderBy.value) {
     case 'asc':
-      return a[sortBy.value] > b[sortBy.value] ? 1 : -1
-    case 'desc':
       return a[sortBy.value] < b[sortBy.value] ? 1 : -1
+    case 'desc':
+      return a[sortBy.value] > b[sortBy.value] ? 1 : -1
   }
 }
 const sortMessages = computed(() => messages.value.map(m => m).sort(_sort))

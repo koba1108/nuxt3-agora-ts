@@ -1,0 +1,16 @@
+name = "nuxt3-agora-ts"
+type = "javascript"
+account_id = "32b7c7d7171f27c70a07d93564a1bdff"
+workers_dev = true
+route = ""
+zone_id = ""
+
+[site]
+bucket = ".output/public"
+entry-point = ".output"
+
+[build]
+command = "NITRO_PRESET=cloudflare yarn nuxt build"
+
+[build.upload]
+format = "service-worker"
