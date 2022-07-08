@@ -9,11 +9,14 @@
   },
   "devDependencies": {
     "@picocss/pico": "^1.5.3",
+    "@types/video.js": "^7.3.42",
     "nuxt": "3.0.0-rc.4",
     "push-dir": "^0.4.1"
   },
   "dependencies": {
     "agora-rtc-sdk": "^3.6.11",
-    "uuidjs": "^4.2.11"
+    "dashjs": "^4.4.0",
+    "uuidjs": "^4.2.11",
+    "video.js": "^7.19.2"
   }
 }

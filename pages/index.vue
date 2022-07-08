@@ -6,5 +6,9 @@
     <li>
       <nuxt-link to="/message">メッセージ画面1へ</nuxt-link>
     </li>
+    <li>
+      <nuxt-link to="/video">ビデオ画面へ</nuxt-link>
+    </li>
   </ul>
 </template>
+
